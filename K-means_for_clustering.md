@@ -1,27 +1,16 @@
----
-title: "August 2, 2nd Half"
-author: "Hausman, Sheline, Tober"
-date: "August 2, 2016"
-output:
-  word_document: default
-  pdf_document: default
-  html_document:
-    keep_md: yes
----
+# K-means for Clustering
+Hausman, Sheline, Tober  
+August 2, 2016  
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 <script type="text/javascript" async
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 ---
-## K-means for clustering
-***
 
-### Class summary / highlights
+### Summary / Highlights
 - K-means is a form of partitional or flat clustering (vs. hierarchical)
 - K, or number of clusters, is specified up front (in R: set by 'centers' in 'kmean' parameters)
 - To calculate: select initial cluster means or centers, then iterate through recalculating cluster means to minimize the distance from each point in each cluster to the respective cluster mean, until cluster means no longer change materially each round
@@ -36,32 +25,50 @@ Uses [protein.R](https://github.com/jgscott/STA380/blob/master/R/protein.R) and 
 
 ***Setup***  
 Read in data and view:
-```{r}
+
+```r
 # Old-school european protein consumption,
 # in grams/person-day from various sources
 protein <- read.csv("protein.csv", row.names=1)
 head(protein, 10)
 ```
 
+```
+##                RedMeat WhiteMeat Eggs Milk Fish Cereals Starch Nuts Fr.Veg
+## Albania           10.1       1.4  0.5  8.9  0.2    42.3    0.6  5.5    1.7
+## Austria            8.9      14.0  4.3 19.9  2.1    28.0    3.6  1.3    4.3
+## Belgium           13.5       9.3  4.1 17.5  4.5    26.6    5.7  2.1    4.0
+## Bulgaria           7.8       6.0  1.6  8.3  1.2    56.7    1.1  3.7    4.2
+## Czechoslovakia     9.7      11.4  2.8 12.5  2.0    34.3    5.0  1.1    4.0
+## Denmark           10.6      10.8  3.7 25.0  9.9    21.9    4.8  0.7    2.4
+## E Germany          8.4      11.6  3.7 11.1  5.4    24.6    6.5  0.8    3.6
+## Finland            9.5       4.9  2.7 33.7  5.8    26.3    5.1  1.0    1.4
+## France            18.0       9.9  3.3 19.5  5.7    28.1    4.8  2.4    6.5
+## Greece            10.2       3.0  2.8 17.6  5.9    41.7    2.2  7.8    6.5
+```
+
 ***Scaling***  
 There are two different ways to scale - 'center' and 'scale'.  Applying both will result in a dataframe with mean of 0 and standard deviation of 1. It also 'standardizes' the scale of x and y to spread out data more evenly if it is tighter on the y axis than on the x axis.  Centering and scaling the data gives each variable equal contribution to distances in clusters. This makes the data more interpretable and is considered to be best practice when clustering.  
   
 Scaling the protein data:
-```{r}
+
+```r
 # Center/scale the data
 protein_scaled <- scale(protein, center=TRUE, scale=TRUE) 
 ```
 
 ***K-means in R (3 centers / clusters)***  
 Variable 'K' is the number of means / clusters - answers the question, 'How many clusters do you want?'.  Given K-means is partitional / flat clustering, it takes in the number clusters as an input parameter (via number of 'centers').
-```{r}
+
+```r
 ## first, consider just Red and White meat clusters
 cluster_redwhite <- kmeans(protein_scaled[,c("WhiteMeat","RedMeat")], centers=3)
 ```
 
 ***Plot (3 centers / clusters)***  
 Plot points of individual countries with labels:
-```{r}
+
+```r
 # Plot with labels
 # type = 'n' just sets up the axes
 plot(protein_scaled[,"RedMeat"], protein_scaled[,"WhiteMeat"], xlim=c(-2,2.75), 
@@ -70,10 +77,13 @@ text(protein_scaled[,"RedMeat"], protein_scaled[,"WhiteMeat"], labels=rownames(p
     col=rainbow(3)[cluster_redwhite$cluster])
 ```
 
+![](K-means_for_clustering_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
 
 ***K-means in R (7 centers / clusters, add iterations with 'nstart')***  
 Repeat exercise with 7 clusters instead of 3.  'nstart' is the number of 'random restarts' for this algorithm: this runs K-means 50 times and picks the best one as an output.  
-```{r}
+
+```r
 ## same plot, but now with clustering on all protein groups
 ## change the number of centers to see what happens.
 cluster_all <- kmeans(protein_scaled, centers=7, nstart=50)
@@ -81,14 +91,41 @@ cluster_all <- kmeans(protein_scaled, centers=7, nstart=50)
 
 ***Interpreting K-means outputs***  
 Output 'cluster_all' is a list of objects:  
-```{r}
+
+```r
 names(cluster_all)
 ```
 
+```
+## [1] "cluster"      "centers"      "totss"        "withinss"    
+## [5] "tot.withinss" "betweenss"    "size"         "iter"        
+## [9] "ifault"
+```
+
 Use '$center' to see means by variable for each cluster:  
-```{r}
+
+```r
 # 7 cluster centers, each of which lives in a 9D euclidean space (9D given 9 X variables)
 cluster_all$centers
+```
+
+```
+##        RedMeat  WhiteMeat        Eggs       Milk       Fish    Cereals
+## 1 -0.068119111 -1.0411250 -0.07694947 -0.2057585  0.1075669  0.6380079
+## 2 -0.949484801 -1.1764767 -0.74802044 -1.4583242  1.8562639 -0.3779572
+## 3 -0.605901566  0.4748136 -0.27827076 -0.3640885 -0.6492221  0.5719474
+## 4  0.006572897 -0.2290150  0.19147892  1.3458748  1.1582546 -0.8722721
+## 5 -0.083057512  1.3613671  0.88491892  0.1671964 -0.2745013 -0.8062116
+## 6  1.599006499  0.2988565  0.93413079  0.6091128 -0.1422470 -0.5948180
+## 7 -0.807569986 -0.8719354 -1.55330561 -1.0783324 -1.0386379  1.7200335
+##       Starch        Nuts     Fr.Veg
+## 1 -1.3010340  1.49973655  1.3659270
+## 2  0.9326321  1.12203258  1.8925628
+## 3  0.6419495 -0.04884971  0.1602082
+## 4  0.1676780 -0.95533923 -1.1148048
+## 5  0.3665660 -0.86720831 -0.1585451
+## 6  0.3451473 -0.34849486  0.1020010
+## 7 -1.4234267  0.99613126 -0.6436044
 ```
 
 ***Insights from K-means outputs***  
@@ -104,21 +141,38 @@ Which cluster do Scandinavian countries fall in?
 
 Use ‘$cluster’ to see which cluster each country is in:
 
-```{r}
+
+```r
 # Clustering identities
 cluster_all$cluster
+```
+
+```
+##        Albania        Austria        Belgium       Bulgaria Czechoslovakia 
+##              7              5              6              7              3 
+##        Denmark      E Germany        Finland         France         Greece 
+##              4              5              4              6              1 
+##        Hungary        Ireland          Italy    Netherlands         Norway 
+##              3              6              1              5              4 
+##         Poland       Portugal        Romania          Spain         Sweden 
+##              3              2              7              2              4 
+##    Switzerland             UK           USSR      W Germany     Yugoslavia 
+##              6              6              3              5              7
 ```
 
 ***Plot (7 centers / clusters)***  
 Plot output from running K-means. Since there are 9 different variables in this dataset, the resulting plot would be 9-D, so there’s no way to plot all variables and see exact clusters.  
 (NOTE: can only plot on 2D, RedMeat and WhiteMeat could be interchanged, can look at clusters within plot based on any two sets of variables)
 
-```{r}
+
+```r
 plot(protein_scaled[,"RedMeat"], protein_scaled[,"WhiteMeat"], xlim=c(-2,2.75), 
     type="n", xlab="Red Meat", ylab="White Meat")
 text(protein_scaled[,"RedMeat"], protein_scaled[,"WhiteMeat"], labels=rownames(protein), 
     col=rainbow(7)[cluster_all$cluster]) ## col is all that differs from first plot
 ```
+
+![](K-means_for_clustering_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 
 

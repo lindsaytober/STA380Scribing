@@ -1,10 +1,8 @@
 ---
-title: "August 2, 2nd Half"
+title: "K-means for Clustering"
 author: "Hausman, Sheline, Tober"
 date: "August 2, 2016"
 output:
-  word_document: default
-  pdf_document: default
   html_document:
     keep_md: yes
 ---
@@ -18,10 +16,8 @@ knitr::opts_chunk$set(echo = TRUE)
 </script>
 
 ---
-## K-means for clustering
-***
 
-### Class summary / highlights
+### Summary / Highlights
 - K-means is a form of partitional or flat clustering (vs. hierarchical)
 - K, or number of clusters, is specified up front (in R: set by 'centers' in 'kmean' parameters)
 - To calculate: select initial cluster means or centers, then iterate through recalculating cluster means to minimize the distance from each point in each cluster to the respective cluster mean, until cluster means no longer change materially each round

@@ -2,7 +2,7 @@
 title: "August 2, 2nd Half"
 author: "Hausman, Sheline, Tober"
 date: "August 2, 2016"
-output: html_document
+output: github_document
 ---
 
 
