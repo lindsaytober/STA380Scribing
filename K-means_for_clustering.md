@@ -15,7 +15,7 @@ August 2, 2016
 - K, or number of clusters, is specified up front (in R: set by 'centers' in 'kmean' parameters)
 - To calculate: select initial cluster means or centers, then iterate through recalculating cluster means to minimize the distance from each point in each cluster to the respective cluster mean, until cluster means no longer change materially each round
 - Run through multiple iterations of this calculation exercise, reselecting initial centroids each time, to minimize SSE by finding optimal centers (in R: set by ‘nstarts’ parameter in 'kmean')
-- Favorable computationsal complexity - K-means scales linearly, so it is suitable for big data applications
+- Favorable computational complexity - K-means scales linearly, so it is suitable for big data applications
 - Example completed in R: [protein.R](https://github.com/jgscott/STA380/blob/master/R/protein.R) using  [protein.csv](https://github.com/jgscott/STA380/blob/master/data/protein.csv) 
 
 ***
@@ -111,21 +111,21 @@ cluster_all$centers
 
 ```
 ##        RedMeat  WhiteMeat        Eggs       Milk       Fish    Cereals
-## 1 -0.949484801 -1.1764767 -0.74802044 -1.4583242  1.8562639 -0.3779572
-## 2 -0.807569986 -0.8719354 -1.55330561 -1.0783324 -1.0386379  1.7200335
-## 3 -0.605901566  0.4748136 -0.27827076 -0.3640885 -0.6492221  0.5719474
-## 4 -0.068119111 -1.0411250 -0.07694947 -0.2057585  0.1075669  0.6380079
-## 5  0.006572897 -0.2290150  0.19147892  1.3458748  1.1582546 -0.8722721
-## 6 -0.083057512  1.3613671  0.88491892  0.1671964 -0.2745013 -0.8062116
-## 7  1.599006499  0.2988565  0.93413079  0.6091128 -0.1422470 -0.5948180
+## 1  1.599006499  0.2988565  0.93413079  0.6091128 -0.1422470 -0.5948180
+## 2 -0.949484801 -1.1764767 -0.74802044 -1.4583242  1.8562639 -0.3779572
+## 3  0.006572897 -0.2290150  0.19147892  1.3458748  1.1582546 -0.8722721
+## 4 -0.083057512  1.3613671  0.88491892  0.1671964 -0.2745013 -0.8062116
+## 5 -0.068119111 -1.0411250 -0.07694947 -0.2057585  0.1075669  0.6380079
+## 6 -0.807569986 -0.8719354 -1.55330561 -1.0783324 -1.0386379  1.7200335
+## 7 -0.605901566  0.4748136 -0.27827076 -0.3640885 -0.6492221  0.5719474
 ##       Starch        Nuts     Fr.Veg
-## 1  0.9326321  1.12203258  1.8925628
-## 2 -1.4234267  0.99613126 -0.6436044
-## 3  0.6419495 -0.04884971  0.1602082
-## 4 -1.3010340  1.49973655  1.3659270
-## 5  0.1676780 -0.95533923 -1.1148048
-## 6  0.3665660 -0.86720831 -0.1585451
-## 7  0.3451473 -0.34849486  0.1020010
+## 1  0.3451473 -0.34849486  0.1020010
+## 2  0.9326321  1.12203258  1.8925628
+## 3  0.1676780 -0.95533923 -1.1148048
+## 4  0.3665660 -0.86720831 -0.1585451
+## 5 -1.3010340  1.49973655  1.3659270
+## 6 -1.4234267  0.99613126 -0.6436044
+## 7  0.6419495 -0.04884971  0.1602082
 ```
 
 ***Insights from K-means outputs***  
@@ -149,15 +149,15 @@ cluster_all$cluster
 
 ```
 ##        Albania        Austria        Belgium       Bulgaria Czechoslovakia 
-##              2              6              7              2              3 
+##              6              4              1              6              7 
 ##        Denmark      E Germany        Finland         France         Greece 
-##              5              6              5              7              4 
+##              3              4              3              1              5 
 ##        Hungary        Ireland          Italy    Netherlands         Norway 
-##              3              7              4              6              5 
+##              7              1              5              4              3 
 ##         Poland       Portugal        Romania          Spain         Sweden 
-##              3              1              2              1              5 
+##              7              2              6              2              3 
 ##    Switzerland             UK           USSR      W Germany     Yugoslavia 
-##              7              7              3              6              2
+##              1              1              7              4              6
 ```
 
 ***Plot (7 centers / clusters)***  
@@ -286,7 +286,7 @@ If density varies across points, it doesn't do well:
 </br>
 
 ***Non-globular shapes***  
-Similar to two circles, K-means doesn't register defined shapes:  
+Similar to two circles, K-means doesn't register shapes:  
 </br>
 <div style="border:1px solid lightgray;">
   ![](Limitations_nonglobular_shapes.png)

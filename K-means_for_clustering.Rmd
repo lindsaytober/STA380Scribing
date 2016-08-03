@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 - K, or number of clusters, is specified up front (in R: set by 'centers' in 'kmean' parameters)
 - To calculate: select initial cluster means or centers, then iterate through recalculating cluster means to minimize the distance from each point in each cluster to the respective cluster mean, until cluster means no longer change materially each round
 - Run through multiple iterations of this calculation exercise, reselecting initial centroids each time, to minimize SSE by finding optimal centers (in R: set by ‘nstarts’ parameter in 'kmean')
-- Favorable computationsal complexity - K-means scales linearly, so it is suitable for big data applications
+- Favorable computational complexity - K-means scales linearly, so it is suitable for big data applications
 - Example completed in R: [protein.R](https://github.com/jgscott/STA380/blob/master/R/protein.R) using  [protein.csv](https://github.com/jgscott/STA380/blob/master/data/protein.csv) 
 
 ***
@@ -228,7 +228,7 @@ If density varies across points, it doesn't do well:
 </br>
 
 ***Non-globular shapes***  
-Similar to two circles, K-means doesn't register defined shapes:  
+Similar to two circles, K-means doesn't register shapes:  
 </br>
 <div style="border:1px solid lightgray;">
   ![](Limitations_nonglobular_shapes.png)
