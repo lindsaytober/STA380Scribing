@@ -111,21 +111,21 @@ cluster_all$centers
 
 ```
 ##        RedMeat  WhiteMeat        Eggs       Milk       Fish    Cereals
-## 1  0.006572897 -0.2290150  0.19147892  1.3458748  1.1582546 -0.8722721
-## 2 -0.068119111 -1.0411250 -0.07694947 -0.2057585  0.1075669  0.6380079
-## 3 -0.949484801 -1.1764767 -0.74802044 -1.4583242  1.8562639 -0.3779572
-## 4  1.599006499  0.2988565  0.93413079  0.6091128 -0.1422470 -0.5948180
-## 5 -0.807569986 -0.8719354 -1.55330561 -1.0783324 -1.0386379  1.7200335
+## 1 -0.949484801 -1.1764767 -0.74802044 -1.4583242  1.8562639 -0.3779572
+## 2 -0.807569986 -0.8719354 -1.55330561 -1.0783324 -1.0386379  1.7200335
+## 3 -0.605901566  0.4748136 -0.27827076 -0.3640885 -0.6492221  0.5719474
+## 4 -0.068119111 -1.0411250 -0.07694947 -0.2057585  0.1075669  0.6380079
+## 5  0.006572897 -0.2290150  0.19147892  1.3458748  1.1582546 -0.8722721
 ## 6 -0.083057512  1.3613671  0.88491892  0.1671964 -0.2745013 -0.8062116
-## 7 -0.605901566  0.4748136 -0.27827076 -0.3640885 -0.6492221  0.5719474
+## 7  1.599006499  0.2988565  0.93413079  0.6091128 -0.1422470 -0.5948180
 ##       Starch        Nuts     Fr.Veg
-## 1  0.1676780 -0.95533923 -1.1148048
-## 2 -1.3010340  1.49973655  1.3659270
-## 3  0.9326321  1.12203258  1.8925628
-## 4  0.3451473 -0.34849486  0.1020010
-## 5 -1.4234267  0.99613126 -0.6436044
+## 1  0.9326321  1.12203258  1.8925628
+## 2 -1.4234267  0.99613126 -0.6436044
+## 3  0.6419495 -0.04884971  0.1602082
+## 4 -1.3010340  1.49973655  1.3659270
+## 5  0.1676780 -0.95533923 -1.1148048
 ## 6  0.3665660 -0.86720831 -0.1585451
-## 7  0.6419495 -0.04884971  0.1602082
+## 7  0.3451473 -0.34849486  0.1020010
 ```
 
 ***Insights from K-means outputs***  
@@ -149,15 +149,15 @@ cluster_all$cluster
 
 ```
 ##        Albania        Austria        Belgium       Bulgaria Czechoslovakia 
-##              5              6              4              5              7 
+##              2              6              7              2              3 
 ##        Denmark      E Germany        Finland         France         Greece 
-##              1              6              1              4              2 
+##              5              6              5              7              4 
 ##        Hungary        Ireland          Italy    Netherlands         Norway 
-##              7              4              2              6              1 
+##              3              7              4              6              5 
 ##         Poland       Portugal        Romania          Spain         Sweden 
-##              7              3              5              3              1 
+##              3              1              2              1              5 
 ##    Switzerland             UK           USSR      W Germany     Yugoslavia 
-##              4              4              7              6              5
+##              7              7              3              6              2
 ```
 
 ***Plot (7 centers / clusters)***  
@@ -190,8 +190,9 @@ Select K points as initial centers.  Repeat the following steps until 'nothing c
 
 How is this done?
 
-- R chooses centers randomly by taking a random sample without replacement of ‘K’ data points - R assigns these as cluster centers
--There are packages for R that deal with how to select an appropriate K and ideal starting points for cluster centers (see k-means ++)
+- R chooses centers randomly by taking a random sample without replacement of ‘K’ data points 
+- R assigns these as cluster centers
+- There are packages for R that deal with how to select an appropriate K and ideal starting points for cluster centers (see k-means ++)
 - Parameter ‘nstarts’ instructs how many times to re-initiate the selection of initial centers in order to run multiple iterations, generating different clusters and associated cluster means, to find the optimal centers
 
 How do we measure 'nearest' to find nearest center?  

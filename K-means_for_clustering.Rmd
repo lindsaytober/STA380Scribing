@@ -132,8 +132,9 @@ Select K points as initial centers.  Repeat the following steps until 'nothing c
 
 How is this done?
 
-- R chooses centers randomly by taking a random sample without replacement of ‘K’ data points - R assigns these as cluster centers
--There are packages for R that deal with how to select an appropriate K and ideal starting points for cluster centers (see k-means ++)
+- R chooses centers randomly by taking a random sample without replacement of ‘K’ data points 
+- R assigns these as cluster centers
+- There are packages for R that deal with how to select an appropriate K and ideal starting points for cluster centers (see k-means ++)
 - Parameter ‘nstarts’ instructs how many times to re-initiate the selection of initial centers in order to run multiple iterations, generating different clusters and associated cluster means, to find the optimal centers
 
 How do we measure 'nearest' to find nearest center?  
