@@ -160,7 +160,7 @@ For each point x~i~, 'error' is the distance from its centroid:
 $$d(x_i,\,\mu_i), \,where\,a_i\,\,is\,the\,cluster\,id\, for\,x_i$$
     
 Typical measure is the SSE (sum of squared errors):  
-$$SSE = \sum_{j=1}^{K_1} \sum_{i:a_i=j} = d(x_i, \mu_j)^2$$
+$$SSE = \sum_{j=1}^{K_1} \sum_{i:a_i=j} d(x_i, \mu_j)^2$$
 
 Assumption is that SSE is as small as possible.  Optimal clustering has lower SSE; sub-optimal clustering has higher SSE.  
 
